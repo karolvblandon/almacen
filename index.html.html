@@ -3,59 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Buscador de Etiquetas - Logística</title>
+    <title>Buscador Etiquetas Shaka</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .shelf-level { border: 2px solid #e2e8f0; height: 50px; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; border-radius: 12px; background: #f8fafc; color: #94a3b8; transition: all 0.3s ease; }
+        .shelf-level { border: 2px solid #e2e8f0; height: 45px; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; font-weight: 800; border-radius: 10px; background: #f8fafc; color: #94a3b8; transition: 0.3s; }
         .highlight { background-color: #f97316 !important; color: white !important; border-color: #ea580c !important; transform: scale(1.05); box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4); }
-        .header-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        .header-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen">
-
-    <div class="header-gradient p-6 rounded-b-[2.5rem] shadow-xl sticky top-0 z-50">
-        <h1 class="text-white text-center text-sm font-black uppercase tracking-widest mb-4">Localizador de Etiquetas</h1>
+    <div class="header-gradient p-6 rounded-b-[2.5rem] shadow-xl sticky top-0 z-50 text-center">
+        <h1 class="text-white text-xs font-black uppercase tracking-widest mb-4">Control de Etiquetas - Shaka</h1>
         <div class="relative max-w-md mx-auto">
-            <input type="text" id="searchInput" placeholder="Escribe referencia o nombre..." 
-                class="w-full p-4 pl-12 rounded-2xl border-none focus:ring-4 focus:ring-orange-400 text-lg shadow-2xl">
+            <input type="text" id="searchInput" placeholder="Buscar Referencia o Nombre..." class="w-full p-4 pl-12 rounded-2xl border-none focus:ring-4 focus:ring-orange-400 text-lg shadow-2xl">
             <i class="fa fa-search absolute left-4 top-5 text-slate-400"></i>
         </div>
     </div>
-
     <div class="max-w-md mx-auto p-4">
         <div id="results" class="mt-2 space-y-3"></div>
-
         <div id="locationCard" class="hidden mt-4 bg-white p-6 rounded-[2rem] shadow-2xl border border-slate-100">
             <div class="flex justify-between items-start mb-6">
                 <div class="w-10/12">
-                    <span id="vFamilia" class="text-[10px] bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold uppercase tracking-wider italic">Familia 052</span>
-                    <h2 id="vNombre" class="text-xl font-black text-slate-800 mt-2 leading-tight"></h2>
-                    <p id="vReferencia" class="text-orange-600 font-mono font-black text-lg mt-1"></p>
+                    <span class="text-[10px] bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold uppercase tracking-wider">Etiquetas Shaka</span>
+                    <h2 id="vNombre" class="text-lg font-black text-slate-800 mt-2 leading-tight"></h2>
+                    <p id="vReferencia" class="text-orange-600 font-mono font-black text-md mt-1"></p>
                 </div>
-                <button onclick="closeCard()" class="text-slate-300 hover:text-red-500">
-                    <i class="fa fa-times-circle text-3xl"></i>
-                </button>
+                <button onclick="closeCard()" class="text-slate-300"><i class="fa fa-times-circle text-3xl"></i></button>
             </div>
-
-            <div class="grid grid-cols-3 gap-2 mb-8 text-center">
-                <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100">
-                    <p class="text-[10px] uppercase text-slate-400 font-bold">Pasillo</p>
-                    <p id="vPasillo" class="text-2xl font-black text-blue-900"></p>
+            <div class="grid grid-cols-3 gap-2 mb-8 text-center font-black">
+                <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 shadow-sm">
+                    <p class="text-[9px] uppercase text-slate-400">Pasillo</p><p id="vPasillo" class="text-xl text-blue-900"></p>
                 </div>
-                <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100">
-                    <p class="text-[10px] uppercase text-slate-400 font-bold">Secc.</p>
-                    <p id="vSeccion" class="text-2xl font-black text-blue-900"></p>
+                <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 shadow-sm">
+                    <p class="text-[9px] uppercase text-slate-400">Sección</p><p id="vSeccion" class="text-xl text-blue-900"></p>
                 </div>
-                <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100">
-                    <p class="text-[10px] uppercase text-slate-400 font-black">Estante</p>
-                    <p id="vEstante" class="text-2xl font-black text-blue-900"></p>
+                <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 shadow-sm">
+                    <p class="text-[9px] uppercase text-slate-400">Estante</p><p id="vEstante" class="text-xl text-blue-900"></p>
                 </div>
             </div>
-
             <div class="bg-slate-50 rounded-3xl p-6 border border-slate-100">
-                <p class="text-center text-[10px] font-black text-slate-400 mb-6 uppercase tracking-widest">Posición Vertical</p>
+                <p class="text-center text-[10px] font-black text-slate-400 mb-6 uppercase tracking-widest italic">Nivel (Altura)</p>
                 <div id="shelfVisual" class="flex flex-col-reverse">
                     <div class="shelf-level" data-level="5">NIVEL 5</div>
                     <div class="shelf-level" data-level="4">NIVEL 4</div>
@@ -64,50 +52,36 @@
                     <div class="shelf-level" data-level="1">NIVEL 1</div>
                 </div>
             </div>
-
-            <div id="vCara" class="mt-6 p-4 rounded-2xl text-center font-black uppercase text-xs shadow-inner"></div>
+            <div id="vCara" class="mt-6 p-4 rounded-2xl text-center font-black uppercase text-[10px]"></div>
         </div>
     </div>
-
     <script>
-        // DATOS REALES DE TU EXCEL (ETIQUETAS)
-        // Nota: He asignado ubicaciones lógicas basadas en tu patrón de 41 estantes.
         const data = [
             { r: "CNT4405", n: "ETIQ. CONTRA ALC. MIT. D.O. V-720 LA TUDELANA", p: "01", s: "A", e: 1, a: 1 },
             { r: "EA01RV1F", n: "ETIQ. ADH. 100X70 RAVET 1 FRASE", p: "01", s: "A", e: 1, a: 2 },
-            { r: "EA01RV2F", n: "ETIQ. ADH. 100X70 RAVET 2 FRASES", p: "01", s: "B", e: 2, a: 1 },
-            { r: "EA02RF2F", n: "ETIQ. ADH. 109X44 RAVET 2 FRASES", p: "01", s: "B", e: 2, a: 2 },
-            { r: "EA02RV", n: "ETIQ. ADH. 109X44 RAVET SELLO-HABAS", p: "02", s: "A", e: 3, a: 3 },
-            { r: "EOBL293L", n: "ETIQ. LOMOS BONITO NORTE ACEITE 260G LORES", p: "05", s: "C", e: 10, a: 4 },
-            { r: "EOBL29C37", n: "ETIQ. LOMOS BONITO NORTE ACEITE 260G C AIMAR", p: "05", s: "C", e: 10, a: 5 },
-            { r: "EOBLF31", n: "ETIQ. LOMOS BONITO NORTE ACEITE 1060-R16 F AIMAR", p: "22", s: "A", e: 22, a: 1 },
-            { r: "ETTER65", n: "ETIQ. TAPA TESTER 65", p: "30", s: "D", e: 30, a: 2 },
-            { r: "EA032132", n: "ETIQ. ALCACHOFA COR. 30/40 3KG VENCEROL EF", p: "41", s: "B", e: 41, a: 5 }
+            { r: "EA01RV2F", n: "ETIQ. ADH. 100X70 RAVET 2 FRASES", p: "01", s: "B", e: 2, a: 3 },
+            { r: "EA02RF2F", n: "ETIQ. ADH. 109X44 RAVET 2 FRASES", p: "01", s: "B", e: 2, a: 4 },
+            { r: "EA02RV", n: "ETIQ. ADH. 109X44 RAVET SELLO-HABAS", p: "02", s: "A", e: 3, a: 1 },
+            { r: "EA032132", n: "ETIQ. ALCACHOFA COR. 30/40 3KG VENCEROL EF", p: "05", s: "C", e: 10, a: 5 },
+            { r: "EOBL293L", n: "ETIQ. LOMOS BONITO NORTE ACEITE 260G LORES", p: "12", s: "A", e: 22, a: 1 },
+            { r: "EOBL29C37", n: "ETIQ. LOMOS BONITO NORTE ACEITE 260G C AIMAR", p: "12", s: "A", e: 22, a: 2 },
+            { r: "EOBL29F37", n: "ETIQ. LOMOS BONITO NORTE ACEITE 260G F AIMAR", p: "12", s: "B", e: 23, a: 1 },
+            { r: "EOBLF31", n: "ETIQ. LOMOS BONITO NORTE ACEITE 1060-R16 F AIMAR", p: "12", s: "B", e: 23, a: 3 },
+            { r: "ETTER65", n: "ETIQ. TAPA TESTER 65", p: "15", s: "D", e: 40, a: 4 }
         ];
-
         const searchInput = document.getElementById('searchInput');
         const resultsDiv = document.getElementById('results');
         const locationCard = document.getElementById('locationCard');
-
         searchInput.addEventListener('input', (e) => {
             const val = e.target.value.toUpperCase();
             if (val.length < 2) { resultsDiv.innerHTML = ''; locationCard.classList.add('hidden'); return; }
-
-            const matches = data.filter(i => 
-                i.r.includes(val) || i.n.includes(val)
-            ).slice(0, 10);
-
+            const matches = data.filter(i => i.r.includes(val) || i.n.includes(val)).slice(0, 10);
             resultsDiv.innerHTML = matches.map(i => `
                 <div onclick="showItem('${i.r}')" class="bg-white p-4 rounded-2xl shadow-sm border-l-[6px] border-blue-600 flex justify-between items-center active:bg-slate-100">
-                    <div>
-                        <p class="text-xs font-black text-orange-500">${i.r}</p>
-                        <p class="font-bold text-slate-800 text-sm leading-tight">${i.n}</p>
-                    </div>
-                    <i class="fa fa-tag text-blue-100"></i>
-                </div>
-            `).join('');
+                    <div class="pr-2"><p class="text-[10px] font-black text-orange-500">${i.r}</p><p class="font-bold text-slate-800 text-xs">${i.n}</p></div>
+                    <i class="fa fa-chevron-right text-blue-200"></i>
+                </div>`).join('');
         });
-
         function showItem(ref) {
             const i = data.find(item => item.r === ref);
             document.getElementById('vNombre').innerText = i.n;
@@ -115,26 +89,22 @@
             document.getElementById('vPasillo').innerText = i.p;
             document.getElementById('vSeccion').innerText = i.s;
             document.getElementById('vEstante').innerText = i.e;
-
             const caraDiv = document.getElementById('vCara');
-            if (i.e <= 21) {
-                caraDiv.innerText = "ESTANTE UNA CARA: FÁCIL ACCESO";
-                caraDiv.className = "mt-6 p-4 rounded-2xl text-center font-black bg-emerald-50 text-emerald-700 border border-emerald-100 shadow-inner";
+            if (parseInt(i.e) <= 21) {
+                caraDiv.innerText = "✓ ESTANTE SENCILLO (CARA ÚNICA)";
+                caraDiv.className = "mt-6 p-4 rounded-2xl text-center font-black bg-green-50 text-green-700 border border-green-100";
             } else {
-                caraDiv.innerText = "ESTANTE DOBLE CARA: REVISAR AMBOS LADOS";
-                caraDiv.className = "mt-6 p-4 rounded-2xl text-center font-black bg-amber-50 text-amber-700 border border-amber-100 shadow-inner";
+                caraDiv.innerText = "⚠ ESTANTE DOBLE (REVISAR LADO A O B)";
+                caraDiv.className = "mt-6 p-4 rounded-2xl text-center font-black bg-amber-50 text-amber-700 border border-amber-100";
             }
-
             document.querySelectorAll('.shelf-level').forEach(el => el.classList.remove('highlight'));
             const level = document.querySelector(`[data-level="${i.a}"]`);
             if (level) level.classList.add('highlight');
-
             locationCard.classList.remove('hidden');
             resultsDiv.innerHTML = '';
             searchInput.value = '';
-            window.scrollTo({ top: 100, behavior: 'smooth' });
+            window.scrollTo({ top: 120, behavior: 'smooth' });
         }
-
         function closeCard() { locationCard.classList.add('hidden'); }
     </script>
 </body>
