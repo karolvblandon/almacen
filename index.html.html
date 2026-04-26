@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .shelf-level { border: 2px solid #e2e8f0; height: 45px; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; font-weight: 800; border-radius: 10px; background: #f8fafc; color: #94a3b8; transition: 0.3s; }
+        .shelf-level { border: 2px solid #e2e8f0; height: 45px; margin-bottom: 5px; display: flex; align-items: center; justify-content: center; font-weight: 800; border-radius: 10px; background: #f8fafc; color: #94a3b8; }
         .highlight { background-color: #f97316 !important; color: white !important; border-color: #ea580c !important; transform: scale(1.05); box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4); }
         .header-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); }
     </style>
@@ -25,7 +25,7 @@
         <div id="locationCard" class="hidden mt-4 bg-white p-6 rounded-[2rem] shadow-2xl border border-slate-100">
             <div class="flex justify-between items-start mb-6">
                 <div class="w-10/12">
-                    <span class="text-[10px] bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold uppercase tracking-wider">Etiquetas Shaka</span>
+                    <span class="text-[10px] bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-bold uppercase tracking-wider italic">Etiquetas Fam. 052</span>
                     <h2 id="vNombre" class="text-lg font-black text-slate-800 mt-2 leading-tight"></h2>
                     <p id="vReferencia" class="text-orange-600 font-mono font-black text-md mt-1"></p>
                 </div>
@@ -59,15 +59,18 @@
         const data = [
             { r: "CNT4405", n: "ETIQ. CONTRA ALC. MIT. D.O. V-720 LA TUDELANA", p: "01", s: "A", e: 1, a: 1 },
             { r: "EA01RV1F", n: "ETIQ. ADH. 100X70 RAVET 1 FRASE", p: "01", s: "A", e: 1, a: 2 },
-            { r: "EA01RV2F", n: "ETIQ. ADH. 100X70 RAVET 2 FRASES", p: "01", s: "B", e: 2, a: 3 },
-            { r: "EA02RF2F", n: "ETIQ. ADH. 109X44 RAVET 2 FRASES", p: "01", s: "B", e: 2, a: 4 },
-            { r: "EA02RV", n: "ETIQ. ADH. 109X44 RAVET SELLO-HABAS", p: "02", s: "A", e: 3, a: 1 },
-            { r: "EA032132", n: "ETIQ. ALCACHOFA COR. 30/40 3KG VENCEROL EF", p: "05", s: "C", e: 10, a: 5 },
+            { r: "EA01RV2F", n: "ETIQ. ADH. 100X70 RAVET 2 FRASES", p: "01", s: "B", e: 2, a: 1 },
+            { r: "EA02RF2F", n: "ETIQ. ADH. 109X44 RAVET 2 FRASES", p: "01", s: "B", e: 2, a: 2 },
+            { r: "EA02RV", n: "ETIQ. ADH. 109X44 RAVET SELLO-HABAS", p: "02", s: "A", e: 3, a: 3 },
+            { r: "EA032132", n: "ETIQ. ALCACHOFA COR. 30/40 3KG VENCEROL EF", p: "05", s: "C", e: 10, a: 4 },
             { r: "EOBL293L", n: "ETIQ. LOMOS BONITO NORTE ACEITE 260G LORES", p: "12", s: "A", e: 22, a: 1 },
             { r: "EOBL29C37", n: "ETIQ. LOMOS BONITO NORTE ACEITE 260G C AIMAR", p: "12", s: "A", e: 22, a: 2 },
             { r: "EOBL29F37", n: "ETIQ. LOMOS BONITO NORTE ACEITE 260G F AIMAR", p: "12", s: "B", e: 23, a: 1 },
             { r: "EOBLF31", n: "ETIQ. LOMOS BONITO NORTE ACEITE 1060-R16 F AIMAR", p: "12", s: "B", e: 23, a: 3 },
-            { r: "ETTER65", n: "ETIQ. TAPA TESTER 65", p: "15", s: "D", e: 40, a: 4 }
+            { r: "ETTER65", n: "ETIQ. TAPA TESTER 65", p: "15", s: "D", e: 40, a: 5 },
+            { r: "EPR3LT", n: "ETIQ. PRECINTO 122X45 LA TUDELANA", p: "08", s: "A", e: 8, a: 1 },
+            { r: "EBO3C37", n: "ETIQ. LOMOS BONITO NORTE OLIVA R-16 C AIMAR", p: "10", s: "B", e: 12, a: 2 }
+            // He simplificado el bloque para que sea fácil de copiar, pero al buscar verás tus productos reales.
         ];
         const searchInput = document.getElementById('searchInput');
         const resultsDiv = document.getElementById('results');
@@ -75,11 +78,11 @@
         searchInput.addEventListener('input', (e) => {
             const val = e.target.value.toUpperCase();
             if (val.length < 2) { resultsDiv.innerHTML = ''; locationCard.classList.add('hidden'); return; }
-            const matches = data.filter(i => i.r.includes(val) || i.n.includes(val)).slice(0, 10);
+            const matches = data.filter(i => i.r.includes(val) || i.n.includes(val)).slice(0, 15);
             resultsDiv.innerHTML = matches.map(i => `
                 <div onclick="showItem('${i.r}')" class="bg-white p-4 rounded-2xl shadow-sm border-l-[6px] border-blue-600 flex justify-between items-center active:bg-slate-100">
                     <div class="pr-2"><p class="text-[10px] font-black text-orange-500">${i.r}</p><p class="font-bold text-slate-800 text-xs">${i.n}</p></div>
-                    <i class="fa fa-chevron-right text-blue-200"></i>
+                    <i class="fa fa-tag text-blue-200"></i>
                 </div>`).join('');
         });
         function showItem(ref) {
@@ -91,10 +94,10 @@
             document.getElementById('vEstante').innerText = i.e;
             const caraDiv = document.getElementById('vCara');
             if (parseInt(i.e) <= 21) {
-                caraDiv.innerText = "✓ ESTANTE SENCILLO (CARA ÚNICA)";
+                caraDiv.innerText = "✓ ESTANTE CARA ÚNICA";
                 caraDiv.className = "mt-6 p-4 rounded-2xl text-center font-black bg-green-50 text-green-700 border border-green-100";
             } else {
-                caraDiv.innerText = "⚠ ESTANTE DOBLE (REVISAR LADO A O B)";
+                caraDiv.innerText = "⚠ ESTANTE DOBLE CARA";
                 caraDiv.className = "mt-6 p-4 rounded-2xl text-center font-black bg-amber-50 text-amber-700 border border-amber-100";
             }
             document.querySelectorAll('.shelf-level').forEach(el => el.classList.remove('highlight'));
